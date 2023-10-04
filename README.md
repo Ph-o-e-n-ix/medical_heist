@@ -30,4 +30,4 @@ Get the Script Phoenix Heist with best Experience with
 
 # License
 You are not allowed to distribute this without obtaining my explicit permission and providing proper credit.
-Please, kindly adhere to these rules and enjoy your experience!"
+Please, kindly adhere to these rules and enjoy your experience!
