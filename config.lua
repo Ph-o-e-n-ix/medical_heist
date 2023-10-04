@@ -1,6 +1,5 @@
 Config = {}
 
-
 Config.Locale = 'en'
 
 Config.MSG = function(msg) -- / Replace your own Notification in here
