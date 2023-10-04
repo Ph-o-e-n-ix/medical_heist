@@ -337,9 +337,3 @@ AddEventHandler('onResourceStop', function(ressourceName)
         DeleteAllPeds()
     end
 end)
-
-RegisterCommand('art', function()
-    FreezeEntityPosition(PlayerPedId(), true)
-    Wait(1000)
-    FreezeEntityPosition(PlayerPedId(), false)
-end)
