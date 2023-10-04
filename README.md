@@ -1,6 +1,7 @@
 # Phoenix Heist
 
-![SPOILER_Phoenix_studios](https://github.com/Ph-o-e-n-ix/phoenix_bloodtypes/assets/119653707/751b0437-7467-4088-a536-7c382270fcf6)
+![Phoenix studios (2) (1)](https://github.com/Ph-o-e-n-ix/medical_heist/assets/119653707/da3ce1a2-639e-4889-a820-b9b0dc7b73b3)
+
 
 [<img alt="alt_text"  src="https://i.imgur.com/yRsZ96F.png" />](https://discord.gg/CUXK7CWx3P)
 
