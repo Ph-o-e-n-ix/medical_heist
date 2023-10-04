@@ -1,4 +1,4 @@
-# Phoenix Heist
+# Medical Heist
 
 ![Phoenix studios (2) (1)](https://github.com/Ph-o-e-n-ix/medical_heist/assets/119653707/da3ce1a2-639e-4889-a820-b9b0dc7b73b3)
 
