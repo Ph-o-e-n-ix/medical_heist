@@ -35,7 +35,7 @@ Config.Start = {
     {
         coords = vector4(485.4702, -1529.1388, 29.2927, 48.6234), -- / Start Heist Coords
         pedname = 'ig_mp_agent14',
-        propname = 'reh_prop_reh_b_computer_04b' -- / for hackingingcoords / If Config.SpawnProps = true, otherwise no function /
+        propname = 'reh_prop_reh_b_computer_04b' -- / for hackingingcoords / If Config.SpawnProps = true, otherwise no function / if prop dont work try "xm_prop_base_computer_01"
     }
 }
 
