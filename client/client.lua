@@ -19,6 +19,8 @@ step2done = false
 step3done = false
 nachricht = false
 
+heist = ''
+
 
 if Config.ShowBlip then
     Citizen.CreateThread(function()
@@ -140,7 +142,8 @@ Citizen.CreateThread(function()
                             PlaySound(-1, "LOCAL_PLYR_CASH_COUNTER_INCREASE", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 0, 0, 1)
                             DeleteEntity(object1) 
                             Config.MSG(Translation[Config.Locale]['received_reward'])
-                            TriggerServerEvent("phoenix_heist:givereward", globaldifficulty)
+                            heist = 'phoenix_heist'
+                            TriggerServerEvent("phoenix_heist:givereward", globaldifficulty, heist)
                             Citizen.Wait(3000)
                             Config.MSG(Translation[Config.Locale]['heist_successfull'])
                         end  
