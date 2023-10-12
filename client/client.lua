@@ -145,6 +145,7 @@ Citizen.CreateThread(function()
                             heist = 'phoenix_heist'
                             TriggerServerEvent("phoenix_heist:givereward", globaldifficulty, heist)
                             Citizen.Wait(3000)
+                            heist = ''
                             Config.MSG(Translation[Config.Locale]['heist_successfull'])
                         end  
                     end 
