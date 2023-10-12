@@ -36,7 +36,6 @@ end)
 
 RegisterServerEvent("phoenix_heist:givereward")
 AddEventHandler("phoenix_heist:givereward", function(globaldifficulty, heist)
-    print(heist)
     if heist == 'phoenix_heist' then
         local xPlayer = ESX.GetPlayerFromId(source)
         if globaldifficulty == 'easy' then 
