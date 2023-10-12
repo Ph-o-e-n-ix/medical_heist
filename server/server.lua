@@ -35,25 +35,28 @@ AddEventHandler("phoenix_heist:callpolice", function(position)
 end)
 
 RegisterServerEvent("phoenix_heist:givereward")
-AddEventHandler("phoenix_heist:givereward", function(globaldifficulty)
-    local xPlayer = ESX.GetPlayerFromId(source)
-    if globaldifficulty == 'easy' then 
-        for i = 1, #Config.RewardItem.easy do
-            xPlayer.addInventoryItem(Config.RewardItem.easy[i] , 1)
-        end  
-        xPlayer.addAccountMoney(Config.RewardMoney.easy.account, Config.RewardMoney.easy.amount )
-    elseif globaldifficulty == 'normal' then
-        for i = 1, #Config.RewardItem.normal do
-            xPlayer.addInventoryItem(Config.RewardItem.normal[i] , 1)
-        end  
-        xPlayer.addAccountMoney(Config.RewardMoney.normal.account, Config.RewardMoney.normal.amount )
-    elseif globaldifficulty == 'hard' then
-        for i = 1, #Config.RewardItem.hard do
-            xPlayer.addInventoryItem(Config.RewardItem.hard[i] , 1)
-        end  
-        xPlayer.addAccountMoney(Config.RewardMoney.hard.account, Config.RewardMoney.hard.amount )
+AddEventHandler("phoenix_heist:givereward", function(globaldifficulty, heist)
+    print(heist)
+    if heist == 'phoenix_heist' then
+        local xPlayer = ESX.GetPlayerFromId(source)
+        if globaldifficulty == 'easy' then 
+            for i = 1, #Config.RewardItem.easy do
+                xPlayer.addInventoryItem(Config.RewardItem.easy[i] , 1)
+            end  
+            xPlayer.addAccountMoney(Config.RewardMoney.easy.account, Config.RewardMoney.easy.amount )
+        elseif globaldifficulty == 'normal' then
+            for i = 1, #Config.RewardItem.normal do
+                xPlayer.addInventoryItem(Config.RewardItem.normal[i] , 1)
+            end  
+            xPlayer.addAccountMoney(Config.RewardMoney.normal.account, Config.RewardMoney.normal.amount )
+        elseif globaldifficulty == 'hard' then
+            for i = 1, #Config.RewardItem.hard do
+                xPlayer.addInventoryItem(Config.RewardItem.hard[i] , 1)
+            end  
+            xPlayer.addAccountMoney(Config.RewardMoney.hard.account, Config.RewardMoney.hard.amount )
+        end
+        heist_webhook(source, globaldifficulty)
     end
-    heist_webhook(source, globaldifficulty)
 end)
 
 function heist_webhook(source, globaldifficulty)
