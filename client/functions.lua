@@ -1,8 +1,4 @@
-
-
-
-
-function startheist(difficulty)
+function startHeist(difficulty)
     globaldifficulty = difficulty
     ESX.TriggerServerCallback('phoenix_heist:hasitem', function(item) 
         if item or Config.RequiredItem == nil then 
@@ -12,7 +8,7 @@ function startheist(difficulty)
                 local gordon = math.random(#Config.EnemyLocations)
                 enemylocation = Config.EnemyLocations[gordon]
                 randomcoords = Config.HackingCoords[math.random(#Config.HackingCoords)]
-                showPictureNotification('CHAR_AGENT14', Translation[Config.Locale]['started_message'], 'Scott Randal', Translation[Config.Locale]['difficulty']..difficulty)
+                showPictureNotification('CHAR_AGENT14', TranslateCap('started_message'), 'Scott Randal', TranslateCap('difficulty') .. difficulty)
                 local randomness = math.random(-60.0,60.0)
                 blipstart = AddBlipForRadius(randomcoords.x + randomness, randomcoords.y + randomness, randomcoords.z, 100.0)
                 SetBlipHighDetail(blipstart, true)
@@ -35,12 +31,12 @@ function startheist(difficulty)
                 step1done = true
             end
         else 
-            Config.MSG(Translation[Config.Locale]['need_item'])
+            Config.MSG(TranslateCap('need_item'))
         end
     end, Config.RequiredItem)
 end
 
-function starthacking() 
+function startHacking() 
     local playerped = PlayerPedId()
     if Config.SpawnProps then
         local dict = Config.HackingAnim.dict
@@ -69,16 +65,16 @@ function starthacking()
                 Citizen.Wait(1500)
                 FreezeEntityPosition(PlayerPedId(), false)
                 ClearPedTasksImmediately(PlayerPedId())
-                Config.MSG(Translation[Config.Locale]['hack_failed'])
-                endheist()
+                Config.MSG(TranslateCap('hack_failed'))
+                endHeist()
                 FreezeEntityPosition(PlayerPedId(), false)
                 TriggerServerEvent("phoenix_heist:servercooldown", false)
                 TriggerServerEvent("phoenix_heist:globalcd")
-                Config.MSG(Translation[Config.Locale]['heist_failed'])
+                Config.MSG(TranslateCap('heist_failed'))
             end
         end)
     else 
-        Config.Progressbar(Translation[Config.Locale]['hack_in_progress'], 5000)
+        Config.Progressbar(TranslateCap('hack_in_progress'), 5000)
         PlaySound(-1, "Event_Start_Text", "GTAO_FM_Events_Soundset", 0, 0, 1)
         step2done = true
         FreezeEntityPosition(playerped, false)
@@ -90,13 +86,13 @@ end
 
 function heist2(difficulty)
     globaldifficulty = difficulty 
-    showPictureNotification('CHAR_AGENT14', Translation[Config.Locale]['hack_success'], 'Scott Randal', Translation[Config.Locale]['difficulty']..difficulty)
+    showPictureNotification('CHAR_AGENT14', TranslateCap('hack_success'), 'Scott Randal', TranslateCap('difficulty') .. difficulty)
     blip1 = AddBlipForCoord(enemylocation.propcoords.x, enemylocation.propcoords.y, enemylocation.propcoords.z)
     SetBlipSprite(blip1, 440)
     SetBlipColour(blip1, 1)
     SetBlipDisplay(blip1, 4)
     BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString(Translation[Config.Locale]['target_blip'])
+    AddTextComponentString(TranslateCap('target_blip'))
     EndTextCommandSetBlipName(blip1)
     SetBlipRoute(blip1, true)
     blip1active = true
@@ -204,21 +200,18 @@ function heist2(difficulty)
     SetEntityInvincible(object1, true)
     step3done = true
     object1active = true
-
-
 end
 
-function phoenixcleararea()
+function phoenixClearArea()
     local radiusToFloat = 50 + 0.0
     ClearAreaLeaveVehicleHealth(enemylocation.propcoords.x, enemylocation.propcoords.y, enemylocation.propcoords.z, radiusToFloat, false, false, false, false, false)
 end
 
-
-function openmenu()
+function openMenu()
     local elemente = {
-		{label = Translation[Config.Locale]['easy'], value = 'easy'},
-		{label = Translation[Config.Locale]['normal'], value = 'normal'},
-		{label = Translation[Config.Locale]['hard'], value = 'hard'},
+		{label = TranslateCap('easy'), value = 'easy'},
+		{label = TranslateCap('normal'), value = 'normal'},
+		{label = TranslateCap('hard'), value = 'hard'},
 	}
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'phoenix_heist', {
         title = 'Scott Randal',
@@ -231,10 +224,10 @@ function openmenu()
             ESX.TriggerServerCallback('phoenix_heist:heistactive', function(isactive)
                 if not isactive then
                     if not busy then 
-                        startheist('easy')
+                        startHeist('easy')
                     end
                 else 
-                    Config.MSG(Translation[Config.Locale]['server_cdactive'])
+                    Config.MSG(TranslateCap('server_cdactive'))
                 end
             end)
         end 
@@ -242,10 +235,10 @@ function openmenu()
             ESX.TriggerServerCallback('phoenix_heist:heistactive', function(isactive)
                 if not isactive then
                     if not busy then
-                        startheist('normal')
+                        startHeist('normal')
                     end
                 else 
-                    Config.MSG(Translation[Config.Locale]['server_cdactive'])
+                    Config.MSG(TranslateCap('server_cdactive'))
                 end
             end)
         end 
@@ -253,10 +246,10 @@ function openmenu()
             ESX.TriggerServerCallback('phoenix_heist:heistactive', function(isactive)
                 if not isactive then
                     if not busy then
-                        startheist('hard')
+                        startHeist('hard')
                     end
                 else 
-                    Config.MSG(Translation[Config.Locale]['server_cdactive'])
+                    Config.MSG(TranslateCap('server_cdactive'))
                 end
             end)
         end 
@@ -267,7 +260,7 @@ function openmenu()
     end)
 end
 
-function endheist()
+function endHeist()
     inmenu = false
     busy = false
     blip1active = false 
@@ -330,7 +323,7 @@ end
 
 AddEventHandler('onResourceStop', function(ressourceName)
     if(GetCurrentResourceName() == ressourceName) then  
-        endheist()
+        endHeist()
         RemoveBlip(blip1)
         DeleteEntity(object1) 
         DeleteEntity(hackerobject) 
