@@ -2,21 +2,21 @@ Config = {}
 
 Config.Locale = 'en' -- 'en' or 'de'
 
-Config.debug = true -- Enables or disables debugging prints to the server and client consoles.
+Config.debug = false -- Enables or disables debugging prints to the server and client consoles.
 
-Config.Framework = 'QB'
+Config.Framework = 'QB' -- 'QB' or 'ESX' make sure to write the Letters big ^^
 
 Config.Menu = 'oxlib' -- ESX for ESX menu default
 
 Config.MSG = function(msg) -- / Replace your own Notification in here
-    --ESX.ShowNotification(msg)
-    QBCore.Functions.Notify(msg, "success", 2500)
+    ESX.ShowNotification(msg)
+    --QBCore.Functions.Notify(msg, "success", 2500)
 end
 
 Config.Progressbar = function(text, time)
-    --exports["esx_progressbar"]:Progressbar(text, time,{FreezePlayer = false, animation ={type = "",dict = "", lib =""},onFinish = function()end})
-    exports['progressbar']:Progress({name = "task", duration = time, label = text})
-    Citizen.Wait(time) -- If you use a only visual Progressbar, you can add this Wait | Not needed at esx_Progressbar
+    exports["esx_progressbar"]:Progressbar(text, time,{FreezePlayer = false, animation ={type = "",dict = "", lib =""},onFinish = function()end})
+    --exports['progressbar']:Progress({name = "task", duration = time, label = text})
+    --Citizen.Wait(time) -- If you use a only visual Progressbar, you can add this Wait | Not needed at esx_Progressbar but for QB progressbar you have to add this Wait!
 end
 
 Config.ShowBlip = true -- Start Blip
