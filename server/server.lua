@@ -97,6 +97,7 @@ end)
 
 function heist_webhook(source, globaldifficulty)
     if Config.Framework == 'ESX' then
+        print("WEbhok ging ")
         local xPlayer = ESX.GetPlayerFromId(source)
         local information = {
             {
@@ -112,6 +113,7 @@ function heist_webhook(source, globaldifficulty)
                 }
             }
         }
+        PerformHttpRequest(svConfig.Webhook, function(err, text, headers) end, 'POST', json.encode({username = 'Phoenix Studios', embeds = information, avatar_url = 'https://i.imgur.com/oBjCx4T.png' }), {['Content-Type'] = 'application/json'})
     else 
         local xPlayer = QBCore.Functions.GetPlayer(source)
         local information = {
@@ -128,9 +130,9 @@ function heist_webhook(source, globaldifficulty)
                 }
             }
         }
+        PerformHttpRequest(svConfig.Webhook, function(err, text, headers) end, 'POST', json.encode({username = 'Phoenix Studios', embeds = information, avatar_url = 'https://i.imgur.com/oBjCx4T.png' }), {['Content-Type'] = 'application/json'})
     end
-	PerformHttpRequest(svConfig.Webhook, function(err, text, headers) end, 'POST', json.encode({username = 'Phoenix Studios', embeds = information, avatar_url = 'https://i.imgur.com/oBjCx4T.png' }), {['Content-Type'] = 'application/json'})
-end 
+end
 
 if Config.Framework == 'ESX' then
     ESX.RegisterServerCallback('phoenix_heist:heistactive', function(source, cb)
