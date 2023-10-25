@@ -8,6 +8,8 @@ Config.Framework = 'ESX' -- 'QB' or 'ESX' make sure to write the Letters big ^^
 
 Config.Menu = 'oxlib' -- ESX for ESX menu default
 
+Config.RequiredPolice = 1 -- How Many Police have to be online
+
 Config.MSG = function(msg) -- / Replace your own Notification in here
     ESX.ShowNotification(msg)
     --QBCore.Functions.Notify(msg, "success", 2500)
@@ -143,6 +145,8 @@ Translation = {
         ['desc_normal'] = 'Gehe den normalen Weg. Stelle lieber sicher, dass du eine Knarre hast. Es kann unangenehm werden',
         ['hard'] = 'Schwer',
         ['desc_hard'] = 'Hol lieber deine Kollegen ran, denn das kann ganz schnell zu einem Desaster werden. Bereite dicha uf etwas schlimmes vor',
+        ['not_enough_cops'] = 'Es sind nicht genug Officer im Dienst',
+
     },
     ['en'] = {
         ['press_e'] = 'Press ~p~[E]~w~ to talk with Scott Randal',
@@ -172,5 +176,6 @@ Translation = {
         ['desc_normal'] = 'Do the normal way. This is a little Challenge, so be careful',
         ['hard'] = 'Hard',
         ['desc_hard'] = 'Make sure you pick up your friends because this is gonna be hard for you. Prepare for the endlevel',
+        ['not_enough_cops'] = 'Not enough Officer in Duty',
     }
 }
