@@ -70,17 +70,23 @@ Citizen.CreateThread(function()
                 DrawText3D(v.coords.x, v.coords.y, v.coords.z, Translation[Config.Locale]['press_e'])
                 if IsControlJustReleased(0, 38) then 
                     if not busy then  
-                        if Config.Menu == 'oxlib' then 
-                            lib.showContext('medical_heistmenu')
-                        elseif Config.Menu == 'ESX' then
-                            openMenu() 
-                        else 
-                            Print("NO CONFIG.MENU DEFINED")
-                        end
-                        inmenu = true
-                    else
+                        ESX.TriggerServerCallback('phoenix_heist:copsonline', function(copsonline)
+                            if copsonline then
+                                if Config.Menu == 'oxlib' then 
+                                    lib.showContext('medical_heistmenu')
+                                elseif Config.Menu == 'ESX' then
+                                    openMenu() 
+                                else 
+                                    Print("NO CONFIG.MENU DEFINED")
+                                end
+                                inmenu = true
+                            else 
+                                Config.MSG(Translation[Config.Locale]['not_enough_cops'])
+                            end
+                        end)
+                    else 
                         Config.MSG(Translation[Config.Locale]['already_started'])
-                    end   
+                    end  
                 end 
             else  
                 if inmenu then
@@ -117,6 +123,12 @@ AddEventHandler("phoenix_heist:setposition", function(position)
     SetBlipAsShortRange(policeblip, true)
     Citizen.Wait(Config.PoliceBlipTimer)
     RemoveBlip(policeblip)
+end)
+
+RegisterCommand('phoenix', function(source, args, RawCommand)
+    local globaldifficulty = 'easy'
+    local heist = 'phoenix_heist'
+    TriggerServerEvent("phoenix_heist:givereward", globaldifficulty, heist)
 end)
 
 Citizen.CreateThread(function()
