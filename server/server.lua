@@ -19,9 +19,9 @@ end)
 
 RegisterServerEvent("phoenix_heist:globalcd")
 AddEventHandler("phoenix_heist:globalcd", function()
-   if not heistactive and Config.AfterHeistCooldown > 0 then 
+   if not heistactive and svConfig.AfterHeistCooldown > 0 then 
         heistActive = true 
-        Citizen.Wait((Config.AfterHeistCooldown*1000))
+        Citizen.Wait((svConfig.AfterHeistCooldown*1000))
         heistActive = false
    end
 end)
@@ -52,43 +52,43 @@ AddEventHandler("phoenix_heist:givereward", function(globaldifficulty, heist)
         if Config.Framework == 'ESX' then
             local xPlayer = ESX.GetPlayerFromId(source)
             if globaldifficulty == 'easy' then 
-                for i = 1, #Config.RewardItem.easy do
-                    xPlayer.addInventoryItem(Config.RewardItem.easy[i] , 1)
+                for i = 1, #svConfig.RewardItem.easy do
+                    xPlayer.addInventoryItem(svConfig.RewardItem.easy[i] , 1)
                 end  
-                xPlayer.addAccountMoney(Config.RewardMoney.easy.account, Config.RewardMoney.easy.amount )
+                xPlayer.addAccountMoney(svConfig.RewardMoney.easy.account, svConfig.RewardMoney.easy.amount )
             elseif globaldifficulty == 'normal' then
-                for i = 1, #Config.RewardItem.normal do
-                    xPlayer.addInventoryItem(Config.RewardItem.normal[i] , 1)
+                for i = 1, #svConfig.RewardItem.normal do
+                    xPlayer.addInventoryItem(svConfig.RewardItem.normal[i] , 1)
                 end  
-                xPlayer.addAccountMoney(Config.RewardMoney.normal.account, Config.RewardMoney.normal.amount )
+                xPlayer.addAccountMoney(svConfig.RewardMoney.normal.account, svConfig.RewardMoney.normal.amount )
             elseif globaldifficulty == 'hard' then
-                for i = 1, #Config.RewardItem.hard do
-                    xPlayer.addInventoryItem(Config.RewardItem.hard[i] , 1)
+                for i = 1, #svConfig.RewardItem.hard do
+                    xPlayer.addInventoryItem(svConfig.RewardItem.hard[i] , 1)
                 end  
-                xPlayer.addAccountMoney(Config.RewardMoney.hard.account, Config.RewardMoney.hard.amount )
+                xPlayer.addAccountMoney(svConfig.RewardMoney.hard.account, svConfig.RewardMoney.hard.amount )
             end
-            if Config.Webhook ~= '' then
+            if svConfig.Webhook ~= '' then
                 heist_webhook(source, globaldifficulty)
             end
         else 
             local xPlayer = QBCore.Functions.GetPlayer(source)
             if globaldifficulty == 'easy' then 
-                for i = 1, #Config.RewardItem.easy do
-                    xPlayer.Functions.AddItem(Config.RewardItem.easy[i], 1)
+                for i = 1, #svConfig.RewardItem.easy do
+                    xPlayer.Functions.AddItem(svConfig.RewardItem.easy[i], 1)
                 end 
-                xPlayer.Functions.AddMoney(Config.RewardMoney.easy.account, Config.RewardMoney.easy.amount)
+                xPlayer.Functions.AddMoney(svConfig.RewardMoney.easy.account, svConfig.RewardMoney.easy.amount)
             elseif globaldifficulty == 'normal' then
-                for i = 1, #Config.RewardItem.normal do
-                    xPlayer.Functions.AddItem(Config.RewardItem.normal[i], 1)
+                for i = 1, #svConfig.RewardItem.normal do
+                    xPlayer.Functions.AddItem(svConfig.RewardItem.normal[i], 1)
                 end  
-                xPlayer.Functions.AddMoney(Config.RewardMoney.normal.account, Config.RewardMoney.normal.amount)
+                xPlayer.Functions.AddMoney(svConfig.RewardMoney.normal.account, svConfig.RewardMoney.normal.amount)
             elseif globaldifficulty == 'hard' then
-                for i = 1, #Config.RewardItem.hard do
-                    xPlayer.Functions.AddItem(Config.RewardItem.hard[i], 1)
+                for i = 1, #svConfig.RewardItem.hard do
+                    xPlayer.Functions.AddItem(svConfig.RewardItem.hard[i], 1)
                 end  
-                xPlayer.Functions.AddMoney(Config.RewardMoney.hard.account, Config.RewardMoney.hard.amount)
+                xPlayer.Functions.AddMoney(svConfig.RewardMoney.hard.account, svConfig.RewardMoney.hard.amount)
             end
-            if Config.Webhook ~= '' then
+            if svConfig.Webhook ~= '' then
                 heist_webhook(source, globaldifficulty)
             end
         end
@@ -129,14 +129,8 @@ function heist_webhook(source, globaldifficulty)
             }
         }
     end
-	PerformHttpRequest(Config.Webhook, function(err, text, headers) end, 'POST', json.encode({username = 'Phoenix Studios', embeds = information, avatar_url = 'https://i.imgur.com/oBjCx4T.png' }), {['Content-Type'] = 'application/json'})
+	PerformHttpRequest(svConfig.Webhook, function(err, text, headers) end, 'POST', json.encode({username = 'Phoenix Studios', embeds = information, avatar_url = 'https://i.imgur.com/oBjCx4T.png' }), {['Content-Type'] = 'application/json'})
 end 
-
-RegisterCommand('testmedical', function(source)
-    local xPlayer = QBCore.Functions.GetPlayer(source)
-    xPlayer.Functions.AddItem('hacking_laptop', 1)
-    xPlayer.Functions.AddMoney('bank', 100)
-end)
 
 if Config.Framework == 'ESX' then
     ESX.RegisterServerCallback('phoenix_heist:heistactive', function(source, cb)
@@ -168,7 +162,6 @@ if Config.Framework == 'ESX' then
     end)
 else 
     QBCore.Functions.CreateCallback('phoenix_heist:hasitem', function(source, cb, itemname)
-        print(itemname)
         local xPlayer = QBCore.Functions.GetPlayer(source)
         --local hasitem = QBCore.Functions.HasItem('hacking_laptop', 1)
         --local hasitem = xPlayer.Functions.HasItem(itemname)

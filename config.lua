@@ -4,7 +4,7 @@ Config.Locale = 'en' -- 'en' or 'de'
 
 Config.debug = false -- Enables or disables debugging prints to the server and client consoles.
 
-Config.Framework = 'QB' -- 'QB' or 'ESX' make sure to write the Letters big ^^
+Config.Framework = 'ESX' -- 'QB' or 'ESX' make sure to write the Letters big ^^
 
 Config.Menu = 'oxlib' -- ESX for ESX menu default
 
