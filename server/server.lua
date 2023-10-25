@@ -97,7 +97,6 @@ end)
 
 function heist_webhook(source, globaldifficulty)
     if Config.Framework == 'ESX' then
-        print("WEbhok ging ")
         local xPlayer = ESX.GetPlayerFromId(source)
         local information = {
             {
@@ -132,7 +131,41 @@ function heist_webhook(source, globaldifficulty)
         }
         PerformHttpRequest(svConfig.Webhook, function(err, text, headers) end, 'POST', json.encode({username = 'Phoenix Studios', embeds = information, avatar_url = 'https://i.imgur.com/oBjCx4T.png' }), {['Content-Type'] = 'application/json'})
     end
+end 
+
+if Config.Framework == 'ESX' then
+    ESX.RegisterServerCallback('phoenix_heist:copsonline', function(source, cb)
+        local xPlayers = ESX.GetPlayers()
+        local cops = 0
+        for i=1, #xPlayers, 1 do
+            local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+            if xPlayer.job.name == 'police' then
+                cops = cops + 1
+            end
+        end
+        if cops >= Config.RequiredPolice then 
+            cb(true)
+        else 
+            cb(false)
+        end
+    end)
+else 
+    QBCore.Functions.CreateCallback('phoenix_heist:heistactive', function(source, cb)
+        local police = 0
+        for k,v in pairs(QBCore.Functions.GetPlayers()) do
+            local xPlayer = QBCore.Functions.GetPlayer(v)
+            if xPlayer and (xPlayer.PlayerData.job.name == 'police') then
+                police = police + 1
+            end
+        end
+        if police >= Config.RequiredPolice then 
+            cb(true)
+        else 
+            cb(false)
+        end
+   end)
 end
+
 
 if Config.Framework == 'ESX' then
     ESX.RegisterServerCallback('phoenix_heist:heistactive', function(source, cb)
@@ -165,15 +198,10 @@ if Config.Framework == 'ESX' then
 else 
     QBCore.Functions.CreateCallback('phoenix_heist:hasitem', function(source, cb, itemname)
         local xPlayer = QBCore.Functions.GetPlayer(source)
-        --local hasitem = QBCore.Functions.HasItem('hacking_laptop', 1)
-        --local hasitem = xPlayer.Functions.HasItem(itemname)
-        print(hasitem)
         if QBCore.Functions.HasItem("hacking_laptop") then 
             cb(true)
-            print("CALLBACK TRUE")
         else 
             cb(false)
-            print("CALLBACK false")
         end
    end)
 end
