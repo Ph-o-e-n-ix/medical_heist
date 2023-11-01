@@ -150,7 +150,7 @@ if Config.Framework == 'ESX' then
         end
     end)
 else 
-    QBCore.Functions.CreateCallback('phoenix_heist:heistactive', function(source, cb)
+    QBCore.Functions.CreateCallback('phoenix_heist:copsonline', function(source, cb)
         local police = 0
         for k,v in pairs(QBCore.Functions.GetPlayers()) do
             local xPlayer = QBCore.Functions.GetPlayer(v)
