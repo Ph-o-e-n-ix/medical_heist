@@ -70,20 +70,37 @@ Citizen.CreateThread(function()
                 DrawText3D(v.coords.x, v.coords.y, v.coords.z, Translation[Config.Locale]['press_e'])
                 if IsControlJustReleased(0, 38) then 
                     if not busy then  
-                        ESX.TriggerServerCallback('phoenix_heist:copsonline', function(copsonline)
-                            if copsonline then
-                                if Config.Menu == 'oxlib' then 
-                                    lib.showContext('medical_heistmenu')
-                                elseif Config.Menu == 'ESX' then
-                                    openMenu() 
+                        if Config.Framework == 'ESX' then
+                            ESX.TriggerServerCallback('phoenix_heist:copsonline', function(copsonline)
+                                if copsonline then
+                                    if Config.Menu == 'oxlib' then 
+                                        lib.showContext('medical_heistmenu')
+                                    elseif Config.Menu == 'ESX' then
+                                        openMenu() 
+                                    else 
+                                        Print("NO CONFIG.MENU DEFINED")
+                                    end
+                                    inmenu = true
                                 else 
-                                    Print("NO CONFIG.MENU DEFINED")
+                                    Config.MSG(Translation[Config.Locale]['not_enough_cops'])
                                 end
-                                inmenu = true
-                            else 
-                                Config.MSG(Translation[Config.Locale]['not_enough_cops'])
-                            end
-                        end)
+                            end)
+                        else 
+                            QBCore.Functions.TriggerCallback('phoenix_heist:copsonline', function(copsonline)
+                                if copsonline then
+                                    if Config.Menu == 'oxlib' then 
+                                        lib.showContext('medical_heistmenu')
+                                    elseif Config.Menu == 'ESX' then
+                                        openMenu() 
+                                    else 
+                                        Print("NO CONFIG.MENU DEFINED")
+                                    end
+                                    inmenu = true
+                                else 
+                                    Config.MSG(Translation[Config.Locale]['not_enough_cops'])
+                                end
+                            end) 
+                        end  
                     else 
                         Config.MSG(Translation[Config.Locale]['already_started'])
                     end  
